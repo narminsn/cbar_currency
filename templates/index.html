@@ -1,0 +1,130 @@
+{% extends 'base.html' %}
+{% block page %}
+    <div class="container">
+
+        {#    {% if form %}#}
+        {#        {% csrf_token %}#}
+        {#        {{form.start_date}}#}
+        {#    {% endif %}#}
+        <br>
+        <hr>
+        <form method="post">
+        <div class="row">
+            <div class="col-5">
+                <div class="form-group required">
+                    <div class="input-group datepick">
+                        <input value="{{ context.time.start_time }}" type="text" class="form-control date1 "
+                               name="date1"
+                               id="frmSaveOffice_startdt"
+                               required readonly>
+                        <div class="input-group-addon">
+                            <span class="glyphicon glyphicon-calendar"></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-5">
+                <div class="form-group required">
+                    <div class="input-group datepick">
+                        <input value="{{ context.time.end_time }}" type="text" class="form-control date2"
+                               name="date2"
+                               id="frmSaveOffice_startdt"
+                               required readonly>
+                        <div class="input-group-addon">
+                            <span class="glyphicon glyphicon-calendar"></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-2">
+                <button type="submit" class="btn btn-primary search">Search</button>
+            </div>
+        </div>
+            </form>
+    </div>
+    <div class="container">
+
+        <table class="table table-striped">
+            <thead>
+            <tr>
+                <th>Name</th>
+                <th>Code</th>
+                <th>Value</th>
+                <th>Difference</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for field in context.data %}
+                <tr>
+                    <td id="{{ field.id }}name" style="line-height: 2.428571;" class="name">{{ field.name }}</td>
+                    <td id="{{ field.id }}code" class="code">{{ field.code }}</td>
+                    <td id="{{ field.id }}val" class="value">{{ field.value }}</td>
+                    <td class="diff"><span id="{{ field.id }}icon" class="{{ field.difference }}"></span></td>
+
+                </tr>
+            {% endfor %}
+
+            </tbody>
+        </table>
+    </div>
+
+    <script>
+        $(document).ready(function () {
+            $('.datepick').datetimepicker({
+                format: 'DD.MM.YYYY',
+                ignoreReadonly: true
+            });
+        });
+    </script>
+
+
+
+{#    <script>#}
+{#        $(document).ready(function (e) {#}
+{##}
+{#            $("button.search").click(function () {#}
+{#                console.log('name')#}
+{##}
+{#                var id = $(this).attr("data-id")#}
+{#                var date1 = $('input.date1').val()#}
+{#                var date2 = $('input.date2').val()#}
+{#                var code = $('#code').val()#}
+{##}
+{#                $.ajax({#}
+{#                    method: "POST",#}
+{#                    data: {'date1': date1, 'date2': date2, 'code': code},#}
+{#                    success: function (data) {#}
+                        {#console.log(data)#}
+{#                        for (i = 0; i < data['data'].length; i++) {#}
+{#                            var id = data['data'][i].id#}
+                            {#console.log($(`td#${id}`))#}
+{#                            $(`td#${id}name`).html(data['data'][i].name);#}
+{#                            $(`td#${id}code`).html(data['data'][i].code);#}
+{#                            $(`td#${id}date`).html(data['data'][i].date);#}
+{#                            $(`td#${id}val`).html(data['data'][i].value);#}
+{#                            $(`span#${id}icon`).addClass(data['data'][i].icon);#}
+{##}
+{#                        }#}
+                        {#$("td.name").html('name');#}
+                        {#$("td.code").html(data['code']);#}
+                        {#$("td.date").html(data['date']);#}
+                        {#$("td.value").html(data['value']);#}
+                        {#$("td.diff").addClass(data['diff']);#}
+{##}
+{#                    }#}
+{#                })#}
+{##}
+{#            })#}
+{##}
+{##}
+{#        })#}
+{#        ;#}
+{#    </script>#}
+
+    <style>
+        table > tbody > tr > td {
+            line-height: 2.428571;
+
+        }
+    </style>
+{% endblock %}
